@@ -1,15 +1,43 @@
 <div class="row">
- 
-    <div style="display: block;">
-      <canvas baseChart width="600" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+    <div *ngIf="show" style="display: block;">
+      <canvas baseChart width="550" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
         [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
         (chartClick)="chartClicked($event)"></canvas>
     </div>
 
   <br/>  <br/>
-  <div>
-      <button class="btn btn-default" (click)="changeTemp()">Change Temperature</button>
-      <br/>  <br/>
 
+  <div>
+<label>City:</label><br/>
+    <select class="ui dropdown" (change)="selectChangeCity($event)">
+        <option value="Obregon">Obregon</option>
+        <option value="Hermosillo">Hermosillo</option>
+        <option value="Nogales">Nogales</option>
+        <option value="Navojoa">Navojoa</option>
+    </select>
+    <br/><br/>
+<label>Scale:</label><br/>
+    <select class="ui dropdown" (change)="selectChangeTemperature($event)">
+        <option value="Celsius">Celsius</option>
+        <option value="Fahrenheit">Fahrenheit</option>
+    </select>
   </div>
+</div>
+<br/><br/>
+
+<div>
+    <h4>TABLE OF WEATHER SONORA MEXICO</h4>
+    <h5>{{citySelected}} city</h5>
+  <table class="ui collapsing table">
+    <thead>
+        <th>Date</th>
+        <th>Temperature Celsius</th>
+        <th>Temperature Fahrenheit</th>
+    </thead>
+    <tbody *ngFor="let data of listDataWeather;">
+        <td>{{data.registerDate}}</td>
+        <td>{{data.tempCelcius}}</td>
+        <td>{{data.tempFahrenheit}}</td>
+    </tbody>
+  </table>
 </div>
